@@ -1,0 +1,2 @@
+fitness_Q,rise_time_s,settling_time_s,overshoot_percent,steady_state_error_m,mean_torque_effort,max_thrust_N,max_torque_Nm
+0.330849403992647,1.155,5.70957673501625,16.4845117740375,0.00017599839989709,6.34607814789742e-05,20.0696860691664,0.0607499999999995
