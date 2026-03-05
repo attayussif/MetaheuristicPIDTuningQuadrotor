@@ -1,4 +1,4 @@
-# Comparative Metaheuristic PID Tuning for Nonlinear Quadrotor Control (MATLAB ODE Framework)
+# Comparative Analysis of Metaheuristic PID Tuning for Quadrotor Altitude and Attitude Stabilization (MATLAB ODE Framework)
 
 ## Overview
 This repository contains an academic comparative study of PID gain tuning for a nonlinear quadrotor model using four metaheuristics:
