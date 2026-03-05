@@ -23,12 +23,12 @@ PID tuning for a nonlinear 6-DOF quadrotor is a nonconvex optimization problem w
 - **Plant:** nonlinear quadrotor dynamics in MATLAB (`ode45`), 6-DOF motion.
 - **State form:** translational + rotational dynamics with integral error states for PID loops.
 - **Control architecture:** cascaded/stacked PID structure for:
-  - altitude $$(`z`)$$
-  - roll $$(`\phi`)$$
-  - pitch $$(`\theta`)$$
-  - yaw $$(`\psi`)$$
+  - altitude ($z$)
+  - roll ($\phi$)
+  - pitch ($\theta$)
+  - yaw ($\psi$)
 - **Actuation:** thrust/torque allocation to rotor speeds with saturation limits.
-- **Simulation horizon:** $$`t_f = 15 s`.$$
+- **Simulation horizon:** `t_f = 15 s`.
 
 Core model files:
 - `quad_dynamics.m`
