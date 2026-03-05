@@ -60,9 +60,9 @@ The scalar fitness `Q` is computed in `QuadrotorPerformance.m` as a time-average
 
 In compact form:
 
-\[
+$$
 Q = \frac{1}{T} \int_0^T \left(Q_1(e_z,e_\phi,e_\theta,e_\psi) + \alpha Q_2(U)\right) dt
-\]
+$$
 
 where the weights and normalization constants are defined in `quad_params.m` (`W_z`, `W_phi`, `W_theta`, `W_psi`, `W_U`, `W_u_scale`, `z_max`, `angle_max`, `U_norm`).
 
@@ -72,7 +72,7 @@ where the weights and normalization constants are defined in `quad_params.m` (`W
 ### GA / PSO / DE/TLBO bounds
 - Lower bounds:
   - `z`: `[0.02, 1e-5, 0.02]`
-  - `\phi, \theta, \psi`: `[1e-4, 1e-6, 1e-4]`
+  - $$`\phi, \theta, \psi`: `[1e-4, 1e-6, 1e-4]`$$
 - Upper bounds:
   - `z`: `[2.0, 0.2, 2.0]`
   - `\phi`: `[0.3, 0.05, 0.3]`
