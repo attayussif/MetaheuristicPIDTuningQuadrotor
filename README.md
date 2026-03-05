@@ -64,7 +64,7 @@ $$
 Q = \frac{1}{T} \int_0^T \left(Q_1(e_z,e_\phi,e_\theta,e_\psi) + \alpha Q_2(U)\right) dt
 $$
 
-where the weights and normalization constants are defined in `quad_params.m` ($W_z$, $W_phi$, $W_theta$, $W_psi$, $W_U$, $W_u_scale$, $z_max$, `angle_max`, $U_norm$).
+where the weights and normalization constants are defined in `quad_params.m` ($W_z$, $W_\phi$, $W_\theta$, $W_\psi$, $W_U$, `W_u_scale`, $z_max$, `angle_max`, U_norm).
 
 ---
 
