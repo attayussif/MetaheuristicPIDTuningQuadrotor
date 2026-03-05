@@ -28,7 +28,7 @@ PID tuning for a nonlinear 6-DOF quadrotor is a nonconvex optimization problem w
   - pitch ($\theta$)
   - yaw ($\psi$)
 - **Actuation:** thrust/torque allocation to rotor speeds with saturation limits.
-- **Simulation horizon:** `t_f = 15 s`.
+- **Simulation horizon:** `$t_f = 15$ s`.
 
 Core model files:
 - `quad_dynamics.m`
@@ -40,7 +40,7 @@ Core model files:
 
 ## Controllers Implemented
 1. **PID (metaheuristic-tuned)**
-   - 12 gains optimized: `[Kp, Ki, Kd]` for each of `z, \phi, \theta, \psi`.
+   - 12 gains optimized: `[Kp, Ki, Kd]` for each of $z, \phi, \theta, \psi$.
 2. **PID baseline via MATLAB `pidtune`**
    - Script: `pidtune_baseline.m`.
 3. **LQI baseline controller**
@@ -55,7 +55,7 @@ Core model files:
 The scalar fitness `Q` is computed in `QuadrotorPerformance.m` as a time-averaged weighted sum of:
 
 1. **Normalized tracking error terms** for altitude and Euler angles:
-   - `z, \phi, \theta, \psi`
+   - $z, \phi, \theta, \psi$
 2. **Normalized control effort** based on rotor-speed magnitudes.
 
 In compact form:
@@ -64,20 +64,20 @@ $$
 Q = \frac{1}{T} \int_0^T \left(Q_1(e_z,e_\phi,e_\theta,e_\psi) + \alpha Q_2(U)\right) dt
 $$
 
-where the weights and normalization constants are defined in `quad_params.m` (`W_z`, `W_phi`, `W_theta`, `W_psi`, `W_U`, `W_u_scale`, `z_max`, `angle_max`, `U_norm`).
+where the weights and normalization constants are defined in `quad_params.m` ($W_z$, $W_phi$, $W_theta$, $W_psi$, $W_U$, $W_u_scale$, $z_max$, `angle_max`, $U_norm$).
 
 ---
 
 ## Gain Bounds Used
 ### GA / PSO / DE/TLBO bounds
 - Lower bounds:
-  - `z`: `[0.02, 1e-5, 0.02]`
-  - $$`\phi, \theta, \psi`: `[1e-4, 1e-6, 1e-4]`$$
+  - $z$: `[0.02, 1e-5, 0.02]`
+  - $\phi, \theta, \psi$: $[1e-4, 1e-6, 1e-4]`$
 - Upper bounds:
-  - `z`: `[2.0, 0.2, 2.0]`
-  - `\phi`: `[0.3, 0.05, 0.3]`
-  - `\theta`: `[0.3, 0.05, 0.3]`
-  - `\psi`: `[0.4, 0.05, 0.4]`
+  - $z$: `[2.0, 0.2, 2.0]`
+  - $\phi$: `[0.3, 0.05, 0.3]`
+  - $\theta$: `[0.3, 0.05, 0.3]`
+  - $\psi$: `[0.4, 0.05, 0.4]`
 ---
 
 ## Optimization Protocol
@@ -148,7 +148,7 @@ The repository includes one-way ANOVA and post-hoc analysis for final fitness di
 - **MATLAB version:** R2025b
 
 ### Expected runtime
-Each algorithm runs `100 × 60` optimization iterations, and each objective call evaluates nonlinear ODE dynamics. Full experiments are computationally intensive and can take **hours per algorithm**, depending on machine load and MATLAB configuration.
+Each algorithm runs `100 × 60` optimization iterations, and each objective call evaluates nonlinear ODE dynamics. Full experiments are computationally intensive and can take **some minutes per algorithm**, depending on machine load and MATLAB configuration.
 
 ---
 
