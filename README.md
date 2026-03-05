@@ -69,7 +69,7 @@ where the weights and normalization constants are defined in `quad_params.m` (`W
 ---
 
 ## Gain Bounds Used
-### GA / PSO / DE bounds
+### GA / PSO / DE/TLBO bounds
 - Lower bounds:
   - `z`: `[0.02, 1e-5, 0.02]`
   - `\phi, \theta, \psi`: `[1e-4, 1e-6, 1e-4]`
@@ -78,14 +78,6 @@ where the weights and normalization constants are defined in `quad_params.m` (`W
   - `\phi`: `[0.3, 0.05, 0.3]`
   - `\theta`: `[0.3, 0.05, 0.3]`
   - `\psi`: `[0.4, 0.05, 0.4]`
-
-### TLBO bounds
-- Lower bounds:
-  - `z`: `[0.01, 1e-5, 0.01]`
-  - `\phi, \theta, \psi`: `[1e-4, 1e-6, 1e-4]`
-- Upper bounds (all channels):
-  - `[10.0, 1.0, 5.0]`
-
 ---
 
 ## Optimization Protocol
@@ -139,84 +131,80 @@ The repository includes one-way ANOVA and post-hoc analysis for final fitness di
 ---
 
 ## Software Requirements
-- **MATLAB:** recommended R2021b or newer (tested workflow is MATLAB-script based).
-- **Required toolboxes:**
-  - Control System Toolbox (for `pidtune`, `lqr`, `tf`)
-  - Statistics and Machine Learning Toolbox (for `anova1`, `multcompare`, `ttest2`)
+- **MATLAB:** **R2025b**
+- **Toolboxes:**
+  - Control System Toolbox (`pidtune`, `lqr`, `tf`)
+  - Statistics and Machine Learning Toolbox (`anova1`, `multcompare`, `ttest2`)
 
-> Note: Main optimization and plant simulation are ODE-script based (no Simulink required for the primary pipeline).
+> Main comparative runs use the MATLAB ODE pipeline (not Simulink).
 
 ---
 
 ## Hardware and Runtime
-### Hardware used in study
-Please fill in your exact test machine for reproducibility in publications:
-- CPU: `<your CPU model>`
-- RAM: `<your RAM>`
-- OS: `<your OS>`
-- MATLAB version: `<your MATLAB release>`
+### Hardware used
+- **CPU:** AMD Ryzen 7 7000 series
+- **RAM:** 16 GB
+- **OS:** Windows
+- **MATLAB version:** R2025b
 
 ### Expected runtime
-Each algorithm executes `100 × 60` optimization iterations, and each objective evaluation runs nonlinear ODE simulation. Runtime therefore depends strongly on CPU speed and MATLAB settings. On a typical desktop/laptop, full multi-run experiments may take **hours** per algorithm.
+Each algorithm runs `100 × 60` optimization iterations, and each objective call evaluates nonlinear ODE dynamics. Full experiments are computationally intensive and can take **hours per algorithm**, depending on machine load and MATLAB configuration.
 
 ---
 
 ## Reproducibility: Step-by-Step
 Run commands from the repository root in MATLAB.
 
-### 1) Initialize baseline(s)
+### 1) Add required folders to MATLAB path
 ```matlab
-% PID baseline from pidtune
+addpath(genpath(pwd));
+```
+
+### 2) Run baseline controllers
+```matlab
+% PID baseline via pidtune
 gains_pid = pidtune_baseline;
 
 % LQI baseline
 run('LQI/run_LQI.m');
 ```
 
-### 2) Run each metaheuristic
+### 3) Run each metaheuristic
 ```matlab
-% Genetic Algorithm
 run('GA/GAQuadrotor.m');
-
-% Particle Swarm Optimization
 run('PSO/PSOQuadrotor.m');
-
-% Differential Evolution
 run('DE/DEQuadrotor.m');
-
-% Teaching-Learning-Based Optimization
 run('TLBO/TLBOQuadrotor.m');
 ```
 
-### 3) Run statistical validation (ANOVA)
+### 4) Run statistical analysis (ANOVA)
 ```matlab
 cd csvs
 run('ANOVA_test.m')
 cd ..
 ```
 
-### 4) Generate overlay comparison plots (altitude + attitude)
+### 5) Generate overlay plots (altitude + attitude)
 ```matlab
 run('compare_responses.m');
 ```
 
-This exports:
+Exports:
 - `altitude_comparison.png`
 - `roll_comparison.png`
 - `pitch_comparison.png`
 - `yaw_comparison.png`
 
-### 5) Run LQI-only comparison/evaluation
+### 6) Run LQI comparison only
 ```matlab
 run('LQI/run_LQI.m');
 ```
-
-This exports LQI time history and metrics CSV files.
 
 ---
 
 ## Running Individual Algorithms (Quick Commands)
 ```matlab
+addpath(genpath(pwd));
 run('GA/GAQuadrotor.m')
 run('PSO/PSOQuadrotor.m')
 run('DE/DEQuadrotor.m')
@@ -226,21 +214,8 @@ run('TLBO/TLBOQuadrotor.m')
 ---
 
 ## Notes
-- The core comparative framework is implemented with MATLAB ODE scripts.
-- Some legacy files/folders may still reference Simulink artifacts from earlier development; they are not required for the ODE-based comparative workflow described above.
+- The comparative workflow documented here is based on MATLAB scripts and ODE simulation.
 
----
-
-## Citation (BibTeX Placeholder)
-```bibtex
-@misc{quadrotor_metaheuristic_pid_study,
-  title        = {Comparative Metaheuristic PID Tuning for Nonlinear Quadrotor Control},
-  author       = {Author(s) Placeholder},
-  year         = {2026},
-  howpublished = {GitHub repository},
-  note         = {Add DOI / URL / publication details}
-}
-```
 
 ---
 
